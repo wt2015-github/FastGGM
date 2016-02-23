@@ -1,7 +1,7 @@
 # FastGGM
 An efficient R package of estimating Gaussian Graphical Model. 
 
-[Homepage](http://www.pitt.edu/~wec47/fastGGM.html) | [Source Code](https://github.com/wt2015-github/FastGGM)
+[Homepage @ Github](http://wt2015-github.github.io/FastGGM/) | [Homepage @ Wei Chen's Lab](http://www.pitt.edu/~wec47/fastGGM.html) | [Source Code](https://github.com/wt2015-github/FastGGM)
 
 ## Description
 FastGGM is used to study conditional dependence among variables, which is well known as the Gaussian graphical model (GGM). It uses scaled Lasso regression to obtain asympotically efficient estimation of each entry of a precision matrix under a sparseness condition. It not only estimates the conditional dependence between each pair of variables but also supplies p-value and confidence interval. This is a fast package even for a high-dimensional data set.
