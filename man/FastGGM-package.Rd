@@ -3,7 +3,7 @@
 \alias{FastGGM}
 \docType{package}
 \title{
-Fast estimation of large Gaussian graphical model
+Fast estimation of Gaussian graphical model
 }
 \description{
 FastGGM is used to study conditional dependence among variables, which is well known as the Gaussian graphical model (GGM). It uses scaled Lasso regression to obtain asympotically efficient estimation of each entry of a precision matrix under a sparseness condition. It not only estimates the conditional dependence between each pair of variables but also supplies p-value and confidence interval. This is a fast package even for a high-dimensional data set.
