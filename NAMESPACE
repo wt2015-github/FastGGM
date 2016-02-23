@@ -1,0 +1,4 @@
+useDynLib(FastGGM)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+importFrom(RcppParallel, RcppParallelLibs)
