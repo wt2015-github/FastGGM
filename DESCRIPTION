@@ -7,5 +7,6 @@ Author: Ting Wang
 Maintainer: Ting Wang <wang9ting@gmail.com>
 Description: Fast package of estimating Gaussian Graphical Model
 License: GPL (>= 2)
+Depends: Rcpp, RcppParallel
 Imports: Rcpp, RcppParallel
 LinkingTo: Rcpp, RcppParallel
