@@ -81,7 +81,7 @@ outlist3 <- FastGGM_edges(X, pairs)
 }
 ```
 
-## References
+## Publications
 * Wang, Ting et al. "FastGGM: An efficient algorithm for the inference of Gaussian graphical model in biological networks." *PloS Computational Biology* 12.2 (2016): e1004755.
 * Ren, Zhao, et al. "Asymptotic normality and optimalities in estimation of large Gaussian graphical models." *The Annals of Statistics* 43.3 (2015): 991-1026.
 
