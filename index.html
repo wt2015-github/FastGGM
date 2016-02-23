@@ -31,7 +31,11 @@
 
 <pre><code>install.packages("Rcpp")
 install.packages("RcppParallel")
+# Install from .tar.gz file
 install.packages(pkgs = "FastGGM.tar.gz", repos = NULL, type = "source")
+# Or install from GitHub
+library(devtools)
+install_github("wt2015-github/FastGGM")
 </code></pre>
 
 <h2>
@@ -86,8 +90,8 @@ prop &lt;- 0.02  # Sparseness
 p &lt;- 100  # Number of variables
 n &lt;- 50  # Number of samples
 for(k in 1:100){
-  Omega0.tmp &lt;- matrix(sample(c(0.3, 0.6, 1), p*p, replace=T), p, p)*matrix(rbinom(p*p, 1, prop), p, p) 
-  Omega0 &lt;- Omega0.tmp 
+  Omega0.tmp &lt;- matrix(sample(c(0.3,0.6,1),p*p,replace=T),p,p)*matrix(rbinom(p*p,1,prop),p,p) 
+  Omega0 &lt;- Omega0.tmp
   for(i in 1:(p-1)){
     for(j in (i+1):p){
       Omega0[j, i] &lt;- Omega0.tmp[i, j]    
