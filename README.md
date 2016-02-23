@@ -15,7 +15,7 @@ install.packages("RcppParallel")
 install.packages(pkgs = "FastGGM.tar.gz", repos = NULL, type = "source")
 # Or install from GitHub
 library(devtools)
-install_github('wt2015-github/FastGGM')
+install_github("wt2015-github/FastGGM")
 ```
 
 ## Usage
