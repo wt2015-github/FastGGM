@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>FastGGM by wt2015-github</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">FastGGM</h1>
+      <h2 class="project-tagline">An efficient R package of estimating Gaussian Graphical Model</h2>
+      <a href="https://github.com/wt2015-github/FastGGM" class="btn">View on GitHub</a>
+      <a href="https://github.com/wt2015-github/FastGGM/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/wt2015-github/FastGGM/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="homepage--source-code" class="anchor" href="#homepage--source-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="http://www.pitt.edu/%7Ewec47/fastGGM.html">Homepage</a> | <a href="https://github.com/wt2015-github/FastGGM">Source Code</a>
+</h2>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h2>
+
+<p>FastGGM is used to study conditional dependence among variables, which is well known as the Gaussian graphical model (GGM). It uses scaled Lasso regression to obtain asympotically efficient estimation of each entry of a precision matrix under a sparseness condition. It not only estimates the conditional dependence between each pair of variables but also supplies p-value and confidence interval. This is a fast package even for a high-dimensional data set.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>This package relies on libraries "Rcpp" and "RcppParallel". R commands for installation:</p>
+
+<pre><code>install.packages("Rcpp")
+install.packages("RcppParallel")
+install.packages(pkgs = "FastGGM.tar.gz", repos = NULL, type = "source")
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>FastGGM(x, lambda)
+FastGGM_Parallel(x, lambda)
+FastGGM_edgs(x, pairs, lambda)
+</code></pre>
+
+<h2>
+<a id="arguments" class="anchor" href="#arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Arguments</h2>
+
+<ul>
+<li>
+<em>x</em>: a n*p matrix with n samples and p variables.</li>
+<li>
+<em>pairs</em>: a 2-column matrix of variable index for edges (variable pairs), each row has two indexes of a variable pair, start from 1. Note if only one edge, it should be a 1*2 matrix.</li>
+<li>
+<em>lambda</em>: penalty parameter in Lasso regression, larger lambda results in faster calculation and a sparser graph, if don't set then use default sqrt(2*log(p/sqrt(n))/n).</li>
+</ul>
+
+<h2>
+<a id="details" class="anchor" href="#details" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Details</h2>
+
+<p><strong>FastGGM</strong> and <strong>FastGGM_Parallel</strong> are used for construct global Gaussian graphical model with one and multiple CPUs. <strong>FastGGM_edges</strong> is used for analyzing specified edges (variable pairs) conditionally on all other variables.</p>
+
+<h2>
+<a id="values" class="anchor" href="#values" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Values</h2>
+
+<ul>
+<li>
+<em>precision</em>: a matrix of precision for the GGM or a vector of precision for the variable pairs.</li>
+<li>
+<em>p_precision</em>: a matrix of p-value for the precision matrix or a vector of p-value for the precision of the variable pairs.</li>
+<li>
+<em>partialCor</em>: a matrix of partial correlation for the GGM or a vector of partial correlation for the vairable pairs.</li>
+<li>
+<em>p_partialCor</em>: a matrix of p-value for the partial correlation matrix or a vector of p-value for the partial correlation of the variable pairs.</li>
+<li>
+<em>CI_low_parCor</em>: a matrix of lower value of 95% confidence interval for partial correlation of the GGM or a vector of lower value of 95% confidence interval for partial correlation of the variable pairs.</li>
+<li>
+<em>CI_high_parCor</em>:  a matrix of higher value of 95% confidence interval for partial correlation or a vector of higher value of 95% confidence interval for partial correlation for the variable pairs.</li>
+</ul>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h2>
+
+<pre><code># Simulate a sparse precision matrix Omega and sample a data matrix X based on it:
+library(MASS) 
+prop &lt;- 0.02  # Sparseness
+p &lt;- 100  # Number of variables
+n &lt;- 50  # Number of samples
+for(k in 1:100){
+  Omega0.tmp &lt;- matrix(sample(c(0.3, 0.6, 1), p*p, replace=T), p, p)*matrix(rbinom(p*p, 1, prop), p, p) 
+  Omega0 &lt;- Omega0.tmp 
+  for(i in 1:(p-1)){
+    for(j in (i+1):p){
+      Omega0[j, i] &lt;- Omega0.tmp[i, j]    
+    }    
+  } 
+  p_prime &lt;- p/2
+  Omega &lt;- Omega0
+  Omega[(p_prime+1):(2*p_prime), (p_prime+1):(2*p_prime)] &lt;- 2*Omega0[1:p_prime,1:p_prime]
+  diag(Omega) &lt;- c(rep(4, p_prime), rep(8, p_prime))
+  eigenvalue &lt;- eigen(Omega)$values
+  ratio &lt;- max(eigenvalue)/min(eigenvalue)
+  cat(k, max(eigenvalue), min(eigenvalue), ratio, '\n')
+  if(ratio &gt; 0){
+    break
+  }
+}
+cov &lt;- solve(Omega)
+X &lt;- mvrnorm(n, rep(0, p), cov)
+
+# Run FastGGM
+library(FastGGM)
+outlist1 &lt;- FastGGM(X)
+
+library(RcppParallel)
+setThreadOptions(numThreads = 4) # set 4 threads for parallel computing
+# If not use the above two commands, it will automatically use all available CPUs
+outlist2 &lt;- FastGGM_Parallel(X)
+
+# To calculate for edges/variable pairs (1,4), (2,5) and (3,6)
+pairs &lt;- matrix(1:6, ncol=2)
+outlist3 &lt;- FastGGM_edges(X, pairs)
+}
+</code></pre>
+
+<h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+
+<ul>
+<li>Wang, Ting et al. "FastGGM: An efficient algorithm for the inference of Gaussian graphical model in biological networks." <em>PloS Computational Biology</em> 12.2 (2016): e1004755.</li>
+<li>Ren, Zhao, et al. "Asymptotic normality and optimalities in estimation of large Gaussian graphical models." <em>The Annals of Statistics</em> 43.3 (2015): 991-1026.</li>
+</ul>
+
+<h2>
+<a id="main-authors" class="anchor" href="#main-authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Authors</h2>
+
+<p><a href="http://wt2015-github.github.io/">Ting Wang</a> (<a href="wang9ting@gmail.com">email</a>), <a href="http://www.pitt.edu/%7Ezren/">Zhao Ren</a> (<a href="zren@pitt.edu">email</a>), <a href="http://www.publichealth.pitt.edu/home/directory/ying-ding">Ying Ding</a> (<a href="YINGDING@pitt.edu">email</a>), <a href="http://www.pitt.edu/%7Ewec47/index.html">Wei Chen</a> (<a href="wei.chen@chp.edu">email</a>).</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/wt2015-github/FastGGM">FastGGM</a> is maintained by <a href="https://github.com/wt2015-github">wt2015-github</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-74200246-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
