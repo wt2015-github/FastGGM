@@ -11,7 +11,11 @@ This package relies on libraries "Rcpp" and "RcppParallel". R commands for insta
 ```
 install.packages("Rcpp")
 install.packages("RcppParallel")
+# Install from .tar.gz file
 install.packages(pkgs = "FastGGM.tar.gz", repos = NULL, type = "source")
+# Or install from GitHub
+library(devtools)
+install_github('wt2015-github/FastGGM')
 ```
 
 ## Usage
