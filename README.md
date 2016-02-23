@@ -27,9 +27,7 @@ FastGGM_edgs(x, pairs, lambda)
 * *lambda*: penalty parameter in Lasso regression, larger lambda results in faster calculation and a sparser graph, if don't set then use default sqrt(2*log(p/sqrt(n))/n).
 
 ## Details
-**FastGGM** and **FastGGM_Parallel** are used for construct global Gaussian graphical model with one and multiple CPUs.
-
-**FastGGM_edges** is used for analyzing specified edges (variable pairs) conditionally on all other variables.
+**FastGGM** and **FastGGM_Parallel** are used for construct global Gaussian graphical model with one and multiple CPUs. **FastGGM_edges** is used for analyzing specified edges (variable pairs) conditionally on all other variables.
 
 ## Values
 * *precision*: a matrix of precision for the GGM or a vector of precision for the variable pairs.
