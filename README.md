@@ -1,5 +1,5 @@
 # FastGGM
-An R package of fast estimating large Gaussian Graphical Model. 
+An efficient R package of estimating Gaussian Graphical Model. 
 
 [Homepage](http://www.pitt.edu/~wec47/fastGGM.html) | [Source Code](https://github.com/wt2015-github/FastGGM)
 
