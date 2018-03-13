@@ -90,4 +90,4 @@ outlist3 <- FastGGM_edges(X, pairs)
 * Ren, Zhao, et al. "Asymptotic normality and optimalities in estimation of large Gaussian graphical models." *The Annals of Statistics* 43.3 (2015): 991-1026.
 
 ## Contact
-[Ting Wang](http://wt2015-github.github.io/) ([email](wang9ting@gmail.com)), [Zhao Ren](http://www.pitt.edu/~zren/) ([email](zren@pitt.edu)), [Wei Chen](http://www.pitt.edu/~wec47/index.html) ([email](wei.chen@chp.edu)).
+[Ting Wang](http://wt2015-github.github.io/) (wang9ting@gmail.com), [Zhao Ren](http://www.pitt.edu/~zren/) (zren@pitt.edu), [Wei Chen](http://www.pitt.edu/~wec47/index.html) (wei.chen@chp.edu).
