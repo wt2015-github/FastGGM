@@ -8,7 +8,6 @@ using namespace RcppParallel;
 
 /*
 *** By Ting & Ark, 2015.6.4
-*** Reference: Ren, Zhao, et al. "Asymptotic normality and optimalities in estimation of large gaussian graphical model." arXiv preprsize_t arXiv:1309.6024 (2013). 
 *** Function 1: Fast conditional GGM
 Inputs:
   X: a matrix with n observation and p variables
