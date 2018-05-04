@@ -7,7 +7,7 @@ using namespace Rcpp;
 using namespace RcppParallel;
 
 /*
-*** By Ting & Ark, 2015.6.4
+*** By Ting Wang
 *** Function 1: Fast conditional GGM
 Inputs:
   X: a matrix with n observation and p variables
